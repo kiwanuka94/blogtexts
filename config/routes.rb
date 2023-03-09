@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
   # static pages
   pages = %w(
-    privacy terms
+    privacy terms demo
   )
 
   pages.each do |page|
@@ -35,6 +35,7 @@ Rails.application.routes.draw do
 
   # more routes here
   resources :widgets, except: [:show]
+  resources :messages, only: [:create]
 
 
 end
