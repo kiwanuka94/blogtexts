@@ -2,13 +2,23 @@ var BlogTextsWidget = {
     circleStyles: { backgroundColor: 'black', height: '50px', width: '50px', borderRadius: '50%', position: 'absolute', bottom: '10px', right: '10px', cursor: 'pointer', },
     welcome_message: 'send me a line',
     formHtml: '<%= escape_javascript render "form" %>',
+    cssStyles: "<%= asset_url('tailwind.css') %>",
 
     init: function() {
         console.log("widget initialized!");
         this.showIcon();
+        this.plantCss();
+    },
+    plantCss: function() {
+        let stylesheet = document.createElement('link');
+        stylesheet.rel = 'stylesheet';
+        stylesheet.href = this.cssStyles;
+
+        document.head.append(stylesheet);
     },
     showForm: function() {
         document.body.insertAdjacentHTML('beforeend', this.formHtml);
+        document.getElementById('new_message').addEventListener('submit', this.submitForm);
         this.hideIcon();
     },
     hideForm: function() {
@@ -19,7 +29,9 @@ var BlogTextsWidget = {
         // need to get the x button, then add event listener to trigger this function
         // actually you need to get this icon in the show form function, then trigger the event in there, which triggers this function
         document.getElementById('blog_text_icon').remove();
-
+    },
+    showThankYou: function() {
+        console.log("show thank you")
     },
     showIcon: function() {
         let icon = document.createElement('span');
@@ -29,6 +41,17 @@ var BlogTextsWidget = {
 
         document.body.append(icon);
     },
-}
+    submitForm: function(e) {
+        e.preventDefault();
+        let form = e.target;
+
+        fetch(form.action, { 
+            method: 'POST', body: new FormData(form)
+         }).then((response) => {
+            BlogTextsWidget.showThankYou();
+         });
+        
+    },
+};
 
 BlogTextsWidget.init(); 
