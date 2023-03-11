@@ -1,8 +1,9 @@
 var BlogTextsWidget = {
-    circleStyles: { backgroundColor: 'black', height: '50px', width: '50px', borderRadius: '50%', position: 'absolute', bottom: '10px', right: '10px', cursor: 'pointer', },
+    circleStyles: { backgroundColor: 'black', height: '50px', width: '50px', borderRadius: '50%', position: 'absolute', bottom: '15px', right: '15px', cursor: 'pointer', },
     welcome_message: 'send me a line',
     formHtml: '<%= escape_javascript render "form" %>',
     cssStyles: "<%= asset_url('tailwind.css') %>",
+    thankYouHtml: '<p id="BlogTextsWidget_thank_you" class="py-4 px-4">Thanks for your message!</p>',
 
     init: function() {
         console.log("widget initialized!");
@@ -16,12 +17,14 @@ var BlogTextsWidget = {
 
         document.head.append(stylesheet);
     },
-    showForm: function() {
+    showWidget: function() {
         document.body.insertAdjacentHTML('beforeend', this.formHtml);
         document.getElementById('new_message').addEventListener('submit', this.submitForm);
+
+        document.getElementById('blog_text_widget_hide_form_button').addEventListener('click', this.hideWidget.bind(this));
         this.hideIcon();
     },
-    hideForm: function() {
+    hideWidget: function() {
         document.getElementById('blog_text_widget').remove();
         this.showIcon();
     },
@@ -31,12 +34,13 @@ var BlogTextsWidget = {
         document.getElementById('blog_text_icon').remove();
     },
     showThankYou: function() {
-        console.log("show thank you")
+        document.getElementById('new_message').innerHTML = this.thankYouHtml;
+        setTimeout(this.hideWidget.bind(this), 3000);
     },
     showIcon: function() {
         let icon = document.createElement('span');
         icon.id = 'blog_text_icon';
-        icon.addEventListener('click', this.showForm.bind(this));
+        icon.addEventListener('click', this.showWidget.bind(this));
         Object.assign(icon.style, this.circleStyles);
 
         document.body.append(icon);
