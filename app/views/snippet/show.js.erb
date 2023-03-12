@@ -1,12 +1,18 @@
 var BlogTextsWidget = {
-    circleStyles: { backgroundColor: 'black', height: '50px', width: '50px', borderRadius: '50%', position: 'absolute', bottom: '15px', right: '15px', cursor: 'pointer', },
-    welcome_message: 'send me a line',
+    welcomeMessage: '<%= @widget.welcome_message %>',
+    backgroundColor: '<%= @widget.background_color %>',
+    shape: '<%= @widget.shape %>',
+    location: '<%= @widget.location %>',
     formHtml: '<%= escape_javascript render "form" %>',
+    iconStyles: { 
+        circle: { backgroundColor: 'black', height: '50px', width: '50px', borderRadius: '50%', position: 'absolute', cursor: 'pointer', bottom: '15px', },
+        square: { backgroundColor: 'black', height: '50px', width: '50px', borderRadius: '0%', position: 'absolute', cursor: 'pointer', bottom: '15px', },
+        rectangle: { backgroundColor: 'black', height: '50px', width: '75px', borderRadius: '10%', position: 'absolute', cursor: 'pointer', bottom: '15px', },
+    },
     cssStyles: "<%= asset_url('tailwind.css') %>",
     thankYouHtml: '<p id="BlogTextsWidget_thank_you" class="py-4 px-4">Thanks for your message!</p>',
 
     init: function() {
-        console.log("widget initialized!");
         this.showIcon();
         this.plantCss();
     },
@@ -21,8 +27,48 @@ var BlogTextsWidget = {
         document.body.insertAdjacentHTML('beforeend', this.formHtml);
         document.getElementById('new_message').addEventListener('submit', this.submitForm);
 
+        this.customizeWidget();
+
         document.getElementById('blog_text_widget_hide_form_button').addEventListener('click', this.hideWidget.bind(this));
         this.hideIcon();
+    },
+    customizeWidget: function() {
+        var self = this;
+
+        // 0. attach widgets client id
+        document.getElementById('client_id').value = '<%= @widget.client_id %>'
+
+        // 1. customize welcome message
+        document.getElementById('blog_text_widget_welcome_message').innerText = self.welcomeMessage;
+
+        // 2. set preferred colors
+        Array.from(document.getElementsByClassName('blog_text_widget_background_color')).forEach(function(el){
+            el.style.backgroundColor = self.backgroundColor;
+        });
+
+        // 3. set widget location
+        let widget = document.getElementById('blog_text_widget');
+
+        if (self.location == 'bottom_right') {
+            widget.style.right = '20px';
+        } else if (self.location == 'bottom_left') {
+            widget.style.left = '20px';
+        } 
+
+    },
+    customizeIcon: function(icon) {
+        // 1. set icon shape
+        Object.assign(icon.style, this.iconStyles[this.shape]);
+
+        // 2. set icon location
+        if (this.location == 'bottom_right') {
+            icon.style.right = '15px';
+        } else if (this.location == 'bottom_left') {
+            icon.style.left = '15px';
+        } 
+
+        // 3. plant icon
+        document.body.append(icon);
     },
     hideWidget: function() {
         document.getElementById('blog_text_widget').remove();
@@ -41,9 +87,9 @@ var BlogTextsWidget = {
         let icon = document.createElement('span');
         icon.id = 'blog_text_icon';
         icon.addEventListener('click', this.showWidget.bind(this));
-        Object.assign(icon.style, this.circleStyles);
 
-        document.body.append(icon);
+        this.customizeIcon(icon);
+
     },
     submitForm: function(e) {
         e.preventDefault();
