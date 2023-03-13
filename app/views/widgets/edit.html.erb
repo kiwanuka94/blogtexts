@@ -1,20 +1,52 @@
 
 
-<div class="mx-auto md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">New widget</h1>
+<div class="mx-auto md:w-2/3 w-full mb-10 mt-10">
+  <h1 class="font-bold text-4xl">Edit Widget</h1>
 
   
 
-  <div class="flex">
+  <div class="flex gap-x-20">
     <div class="basis-1/2">
       <%= render "form", widget: @widget %>
       <%= link_to "Back to widgets", widgets_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
 
     </div>
     <div class="basis-1/2">
-      LIVE PREVIEW HERE
+      <%= render ("snippet/form") %>
     </div>
   </div>
 
   
 </div>
+
+<script>
+
+  // function previewWelcomeMessage(el) {
+  //   document.getElementById('blog_text_widget_welcome_message').innerText = el.value;
+  // };
+
+  // function previewBackgroundColor(colorPicker) {
+  //   Array.from(document.getElementsByClassName('blog_text_widget_background_color')).forEach(function(el){
+  //         el.style.backgroundColor = colorPicker.value;
+  //   });
+  // };
+
+  function disableForm() {
+    document.getElementById('message_name').disabled = true;
+    document.getElementById('message_email').disabled = true;
+    document.getElementById('message_content').disabled = true;
+    document.getElementById('message_submit').disabled = true;
+
+  };
+
+  function setDefaults() {
+    document.getElementById('widget_welcome_message').value = "<%=  %>";
+    previewWelcomeMessage(document.getElementById('widget_welcome_message'));
+    document.getElementById('widget_background_color').value = "#26B55D";
+    previewBackgroundColor(document.getElementById('widget_background_color'));
+
+  };
+
+  setDefaults();
+  disableForm();
+</script>

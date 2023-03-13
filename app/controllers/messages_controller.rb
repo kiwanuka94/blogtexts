@@ -1,6 +1,6 @@
 class MessagesController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: [:show]
-  before_action :set_widget, only: [:show]
+  skip_before_action :verify_authenticity_token, only: [:create]
+  before_action :set_widget, only: [:create]
 
   def create
     @widget.messages.create(message_params)
