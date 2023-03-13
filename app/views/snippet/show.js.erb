@@ -5,9 +5,9 @@ var BlogTextsWidget = {
     location: '<%= @widget.location %>',
     formHtml: '<%= escape_javascript render "form" %>',
     iconStyles: { 
-        circle: { backgroundColor: 'black', height: '50px', width: '50px', borderRadius: '50%', position: 'absolute', cursor: 'pointer', bottom: '15px', },
-        square: { backgroundColor: 'black', height: '50px', width: '50px', borderRadius: '0%', position: 'absolute', cursor: 'pointer', bottom: '15px', },
-        rectangle: { backgroundColor: 'black', height: '50px', width: '75px', borderRadius: '10%', position: 'absolute', cursor: 'pointer', bottom: '15px', },
+        circle: { backgroundColor: 'black', height: '50px', width: '50px', borderRadius: '50%', position: 'fixed', cursor: 'pointer', bottom: '15px', },
+        square: { backgroundColor: 'black', height: '50px', width: '50px', borderRadius: '0%', position: 'fixed', cursor: 'pointer', bottom: '15px', },
+        rectangle: { backgroundColor: 'black', height: '50px', width: '75px', borderRadius: '10%', position: 'fixed', cursor: 'pointer', bottom: '15px', },
     },
     cssStyles: "<%= asset_url('tailwind.css') %>",
     thankYouHtml: '<p id="BlogTextsWidget_thank_you" class="py-4 px-4">Thanks for your message!</p>',
@@ -49,11 +49,15 @@ var BlogTextsWidget = {
         // 3. set widget location
         let widget = document.getElementById('blog_text_widget');
 
+        widget.style.bottom = '15px';
         if (self.location == 'bottom_right') {
             widget.style.right = '20px';
         } else if (self.location == 'bottom_left') {
             widget.style.left = '20px';
         } 
+
+        // 4. put form in focus.
+        document.getElementById('message_name').focus();
 
     },
     customizeIcon: function(icon) {
