@@ -5,9 +5,9 @@ var BlogTextsWidget = {
     location: '<%= @widget.location %>',
     formHtml: '<%= escape_javascript render "form" %>',
     iconStyles: { 
-        circle: { backgroundColor: 'black', height: '50px', width: '50px', borderRadius: '50%', position: 'fixed', cursor: 'pointer', bottom: '15px', },
-        square: { backgroundColor: 'black', height: '50px', width: '50px', borderRadius: '0%', position: 'fixed', cursor: 'pointer', bottom: '15px', },
-        rectangle: { backgroundColor: 'black', height: '50px', width: '75px', borderRadius: '10%', position: 'fixed', cursor: 'pointer', bottom: '15px', },
+        circle: { backgroundColor: 'black', height: '50px', width: '50px', borderRadius: '50%', position: 'fixed', cursor: 'pointer', bottom: '25px', },
+        square: { backgroundColor: 'black', height: '50px', width: '50px', borderRadius: '0%', position: 'fixed', cursor: 'pointer', bottom: '25px', },
+        rectangle: { backgroundColor: 'black', height: '50px', width: '75px', borderRadius: '10%', position: 'fixed', cursor: 'pointer', bottom: '25px', },
     },
     cssStyles: "<%= asset_url('tailwind.css') %>",
     thankYouHtml: '<p id="BlogTextsWidget_thank_you" class="py-4 px-4">Thanks for your message!</p>',
@@ -49,11 +49,11 @@ var BlogTextsWidget = {
         // 3. set widget location
         let widget = document.getElementById('blog_text_widget');
 
-        widget.style.bottom = '15px';
+        widget.style.bottom = '25px';
         if (self.location == 'bottom_right') {
-            widget.style.right = '20px';
+            widget.style.right = '25px';
         } else if (self.location == 'bottom_left') {
-            widget.style.left = '20px';
+            widget.style.left = '25px';
         } 
 
         // 4. put form in focus.
@@ -66,9 +66,9 @@ var BlogTextsWidget = {
 
         // 2. set icon location
         if (this.location == 'bottom_right') {
-            icon.style.right = '15px';
+            icon.style.right = '25px';
         } else if (this.location == 'bottom_left') {
-            icon.style.left = '15px';
+            icon.style.left = '25px';
         } 
 
         // 3. plant icon
@@ -91,6 +91,7 @@ var BlogTextsWidget = {
         let icon = document.createElement('span');
         icon.id = 'blog_text_icon';
         icon.addEventListener('click', this.showWidget.bind(this));
+        icon.classList.add("hover:animate-bounce");
 
         this.customizeIcon(icon);
 
