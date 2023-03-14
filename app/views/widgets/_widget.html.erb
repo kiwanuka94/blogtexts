@@ -5,11 +5,11 @@
     </td>
 
     <td class="w-full">
-      <input class="w-full" type="text" readonly name="" value="<%= snippet_code(widget) %>">
+      <input class="w-full" id="widget_<%= widget.id %>_snippet" type="text" readonly name="" value="<%= snippet_code(widget) %>">
     </td>
 
     <td>
-      <%= link_to 'Copy', '', class: "rounded-lg py-3 px-5 bg-blue-600 text-white block text-xs" %>
+      <%= link_to 'Copy', '#', onclick:"copySnippet(#{widget.id})", class: "rounded-lg py-3 px-5 bg-blue-600 hover:bg-blue-400 text-white block text-xs" %>
     </td>
 
     <td>
