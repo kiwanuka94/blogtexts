@@ -36,6 +36,7 @@
     var snippet = document.getElementById("widget_" + widgetId + "_snippet");
 
     copyTextToClipboard(snippet.value);
+    document.getElementById("widget_" + widgetId + "_copy_confirmation").innerText = 'Copied!';
   };
 
   function copyTextToClipboard(text) {
