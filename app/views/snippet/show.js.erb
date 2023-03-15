@@ -56,7 +56,14 @@ var BlogTextsWidget = {
             widget.style.left = '25px';
         } 
 
-        // 4. put form in focus.
+        // 4. insert avatar
+        <% if @widget.avatar.present? %>
+            let avatarSrc = "<%= Rails.application.routes.url_helpers.url_for(@widget.avatar) %>";
+            document.getElementById('blog_text_widget_avatar').src = avatarSrc;
+        <% end %>
+
+
+        // 5. put form in focus.
         document.getElementById('message_name').focus();
 
     },
@@ -73,6 +80,7 @@ var BlogTextsWidget = {
 
         // 3. plant icon
         document.body.append(icon);
+
     },
     hideWidget: function() {
         document.getElementById('blog_text_widget').remove();

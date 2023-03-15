@@ -62,6 +62,6 @@ class WidgetsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def widget_params
-      params.require(:widget).permit(:name, :welcome_message, :background_color, :shape, :location, :enabled)
+      params.require(:widget).permit(:name, :welcome_message, :background_color, :shape, :location, :avatar, :enabled)
     end
 end

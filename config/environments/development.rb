@@ -37,7 +37,7 @@ Rails.application.configure do
   config.hosts << /[a-z0-9-]+\.ngrok\.io/
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  config.active_storage.service = :local
+  config.active_storage.service = :amazon #TODO - change back to local
 
   # open mailers in the browser
   config.action_mailer.delivery_method = :letter_opener
