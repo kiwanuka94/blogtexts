@@ -1,4 +1,5 @@
 class MessagesController < ApplicationController
+  before_action :authenticate_user!, only: [:index]
   skip_before_action :verify_authenticity_token, only: [:create]
   before_action :set_widget, only: [:create]
 
@@ -9,6 +10,12 @@ class MessagesController < ApplicationController
 
   def index
     @messages = current_user.messages.newest_to_oldest
+
+
+    respond_to do |format|
+      format.html { @messages }
+      format.csv { send_data(Message.to_csv(@messages), filename: "messages-#{Date.today}.csv") }
+    end
   end
 
   private
