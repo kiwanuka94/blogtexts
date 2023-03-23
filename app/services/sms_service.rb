@@ -8,7 +8,7 @@ class SmsService
     def send_text!
         uri = URI.parse('https://textbelt.com/text')
         resp = Net::HTTP.post_form(uri, {
-            :phone => '7818208626',
+            :phone => phone,
             :message => body,
             :key => api_key,
         })
@@ -19,7 +19,10 @@ class SmsService
     def api_key
         key = ENV['TEXTBELT_KEY']
         key
+    end
 
+    def phone
+        @message.user.phone
     end
 
     def body

@@ -4,7 +4,8 @@ class MessagesController < ApplicationController
   before_action :set_widget, only: [:create]
 
   def create
-    @widget.messages.create(message_params)
+    message = @widget.messages.create(message_params)
+    message.notify_user
     head :ok
   end
 
