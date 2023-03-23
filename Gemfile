@@ -25,6 +25,8 @@ gem 'chartkick'
 gem 'groupdate' # used by Chartkick
 gem 'image_processing', '>= 1.2'
 gem 'aws-sdk-s3'
+gem 'uri'
+gem 'net-http'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[ mingw mswin x64_mingw jruby ]
