@@ -7,4 +7,7 @@ class User < ApplicationRecord
 
   has_many :widgets, dependent: :destroy
   has_many :messages, through: :widgets
+
+  
+
 end
