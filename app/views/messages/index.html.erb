@@ -1,5 +1,5 @@
 <div class="px-4 sm:px-6 lg:px-8 mt-20 mb-20">
-  <%= render partial: "shared/heading", locals: { title: 'Messages', tagline: 'Below is a list of messages you have received from your website visitors.' }%>
+  <%= render partial: "shared/heading", locals: { title: "Messages (#{@messages.count})", tagline: 'Below is a list of messages you have received from your website visitors.' }%>
   
   <div class="sm:flex sm:items-center mt-5">
     <div class="mt-10 sm:mt-0 sm:flex-none">

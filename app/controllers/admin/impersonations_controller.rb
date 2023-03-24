@@ -4,7 +4,7 @@ class Admin::ImpersonationsController < ApplicationController
 
   def new
     sign_in(@user)
-    redirect_to dashboard_index_path, notice: "[ADMIN] You are now signed in as #{@user.email}"
+    redirect_to dashboard_path, notice: "[ADMIN] You are now signed in as #{@user.email}"
   end
 
   private

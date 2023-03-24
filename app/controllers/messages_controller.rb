@@ -4,8 +4,10 @@ class MessagesController < ApplicationController
   before_action :set_widget, only: [:create]
 
   def create
-    message = @widget.messages.create(message_params)
-    message.notify_user
+    if @widget.enabled?
+      message = @widget.messages.create(message_params)
+      message.notify_user
+    end
     head :ok
   end
 
