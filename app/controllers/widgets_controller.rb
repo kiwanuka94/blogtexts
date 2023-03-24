@@ -1,6 +1,7 @@
 class WidgetsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_widget, only: %i[ edit update destroy ]
+  before_action :set_flashes, only: [:index]
 
   # GET /widgets or /widgets.json
   def index
@@ -63,5 +64,12 @@ class WidgetsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def widget_params
       params.require(:widget).permit(:name, :welcome_message, :background_color, :shape, :location, :avatar, :enabled)
+    end
+
+    def set_flashes
+      if params[:subscribed] == 'true'
+        current_user.delay.set_stripe_subscription
+        flash.now[:notice] = 'Your account is now active!'
+      end
     end
 end
